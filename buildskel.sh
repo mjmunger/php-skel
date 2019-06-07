@@ -47,7 +47,13 @@ fi
 
 
 echo "Cloning $1..."
-NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
+NEWDIR=$(pwd)/$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
+
+if [ -d ${NEWDIR} ]; then
+    echo "$1 already exists. Quitting."
+    exit 1
+fi
+
 git clone $1
 if [ ! -d ${NEWDIR} ]; then
     "Cannot change to ${NEWDIR}. It must exist to continue!"
