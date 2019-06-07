@@ -49,6 +49,10 @@ fi
 echo "Cloning $1..."
 NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
 git clone $1
+if [ ! -d ${NEWDIR} ]; then
+    "Cannot change to ${NEWDIR}. It must exist to continue!"
+    exit 1
+fi
 cd ${NEWDIR}
 
 build_skel
