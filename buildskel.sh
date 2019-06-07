@@ -1,5 +1,6 @@
 #!/bin/bash
 function build_skel() {
+    echo "Building skeleton..."
     mkdir bootstrap build config src tests tools uploads
     cd tests
     mkdir integration unit
@@ -8,7 +9,7 @@ function build_skel() {
 }
 
 function run_composer() {
-
+    echo "Running composer..."
     PACKAGES=( league/route league/container zendframework/zend-diactoros zendframework/zend-httphandlerrunner monolog/monolog guzzlehttp/guzzle hphio/api-cli hphio/util filp/whoops ext-pdo hphio/farret phpmailer/phpmailer )
 
     for PACKAGE in ${PACKAGES[@]}
@@ -25,13 +26,16 @@ function run_composer() {
 }
 
 function setup_phpunit () {
+    echo "Setting up PHPUnit..."
     ln -s vendor/phpunit/phpunit/phpunit .
     chmod ./phpunit
 }
 
 function checkout_repo() {
-#    rm -vfr .git
-#    git clone $1
+    NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
+    echo "Cloning $1..."
+    cd ${NEWDIR}
+    git clone $1
     echo "checkout"
 }
 
@@ -49,9 +53,10 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
+
+checkout_repo $1
 build_skel
 run_composer
 setup_phpunit
-checkout_repo $1
 
 echo "Completed."
