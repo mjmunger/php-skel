@@ -5,7 +5,8 @@ function build_skel() {
     cd tests
     mkdir integration unit
     cd ..
-    touch .htaccess CHANGELOG.md README.md composer.json
+    touch .htaccess CHANGELOG.md README.md
+    echo "{}" > composer.json
 }
 
 function run_composer() {
