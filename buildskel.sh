@@ -28,15 +28,14 @@ function run_composer() {
 function setup_phpunit () {
     echo "Setting up PHPUnit..."
     ln -s vendor/phpunit/phpunit/phpunit .
-    chmod ./phpunit
+    chmod +x ./phpunit
 }
 
 function checkout_repo() {
-    NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
     echo "Cloning $1..."
-    cd ${NEWDIR}
+    NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
     git clone $1
-    echo "checkout"
+    cd ${NEWDIR}
 }
 
 function check_original_dev_location() {
