@@ -31,13 +31,6 @@ function setup_phpunit () {
     chmod +x ./phpunit
 }
 
-function checkout_repo() {
-    echo "Cloning $1..."
-    NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
-    git clone $1
-    cd ${NEWDIR}
-}
-
 function check_original_dev_location() {
     if [ "/home/michael/bash/php-skel" = "$(pwd)" ]; then
         echo "You cannot run this in the original development directory. Clone somewhere else."
@@ -53,7 +46,11 @@ if [ $# -ne 1 ]; then
 fi
 
 
-checkout_repo $1
+echo "Cloning $1..."
+NEWDIR=$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
+git clone $1
+cd ${NEWDIR}
+
 build_skel
 run_composer
 setup_phpunit
