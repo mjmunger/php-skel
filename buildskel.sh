@@ -5,7 +5,7 @@ function build_skel() {
     cd tests
     mkdir integration unit
     cd ..
-    touch .htaccess CHANGELOG.md README.md
+    touch .htaccess CHANGELOG.md README.md composer.json
 }
 
 function run_composer() {
@@ -47,6 +47,7 @@ fi
 
 
 echo "Cloning $1..."
+
 NEWDIR=$(pwd)/$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
 
 if [ -d ${NEWDIR} ]; then
@@ -59,8 +60,11 @@ if [ ! -d ${NEWDIR} ]; then
     "Cannot change to ${NEWDIR}. It must exist to continue!"
     exit 1
 fi
+
 cd ${NEWDIR}
 
+echo $(pwd)
+exit 1
 build_skel
 run_composer
 setup_phpunit
