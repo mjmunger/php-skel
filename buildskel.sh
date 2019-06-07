@@ -63,8 +63,6 @@ fi
 
 cd ${NEWDIR}
 
-echo $(pwd)
-exit 1
 build_skel
 run_composer
 setup_phpunit
