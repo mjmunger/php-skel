@@ -50,7 +50,7 @@ echo "Cloning $1..."
 NEWDIR=$(pwd)/$(echo $1 | rev | cut -d "/" -f 1 | rev | cut -d "." -f 1)
 
 if [ -d ${NEWDIR} ]; then
-    echo "$1 already exists. Quitting."
+    echo "${NEWDIR} already exists. Quitting."
     exit 1
 fi
 
